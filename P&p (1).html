@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Packaged & Positioned — Be Remembered, Not Just Seen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171C;
+    --ink-soft:#1D2128;
+    --paper:#EDE8DD;
+    --paper-soft:#E4DECE;
+    --amber:#C98A3D;
+    --amber-dark:#A8672A;
+    --static:#8C8579;
+    --cream-text:#F5F1E8;
+    --line: rgba(245,241,232,0.14);
+    --line-dark: rgba(20,23,28,0.12);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --max: 1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+
+  body{
+    background:var(--ink);
+    color:var(--cream-text);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px; height:1px;
+    background:var(--amber);
+    display:inline-block;
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:500; letter-spacing:-0.01em;}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,23,28,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:var(--serif);
+    font-size:19px;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  .logo span{color:var(--amber);}
+  .nav-links{
+    display:flex; align-items:center; gap:36px;
+    font-size:14px; color:var(--cream-text); opacity:0.85;
+  }
+  .nav-links a{transition:opacity 0.2s, color 0.2s;}
+  .nav-links a:hover{opacity:1; color:var(--amber);}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    border:1px solid var(--amber);
+    color:var(--amber);
+    padding:10px 18px;
+    border-radius:2px;
+    transition:background 0.2s, color 0.2s;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--amber); color:var(--ink);}
+  .nav-toggle{display:none; background:none; border:none; color:var(--cream-text); font-size:24px; cursor:pointer;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:110px 0 90px;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px, 4.6vw, 54px);
+    line-height:1.12;
+    margin:22px 0 26px;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--amber);
+  }
+  .hero p.sub{
+    font-size:18px;
+    color:var(--cream-text);
+    opacity:0.82;
+    max-width:480px;
+    margin-bottom:36px;
+  }
+  .btn-row{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+  .btn-primary{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:0.05em;
+    background:var(--amber);
+    color:var(--ink);
+    padding:16px 26px;
+    border-radius:2px;
+    font-weight:500;
+    transition:background 0.2s, transform 0.2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--cream-text); transform:translateY(-1px);}
+  .btn-ghost{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--static);
+    letter-spacing:0.05em;
+    border-bottom:1px solid var(--static);
+    padding-bottom:2px;
+    transition:color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover{color:var(--cream-text); border-color:var(--cream-text);}
+
+  .signal-box{
+    position:relative;
+    background:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:30px 26px 24px;
+  }
+  .signal-box .label{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.1em;
+    color:var(--static); text-transform:uppercase;
+    display:flex; justify-content:space-between; margin-bottom:18px;
+  }
+  .signal-box svg{width:100%; height:auto;}
+
+  /* SECTION SHARED */
+  section{padding:100px 0;}
+  .section-paper{background:var(--paper); color:var(--ink);}
+  .section-paper .eyebrow{color:var(--amber-dark);}
+  .section-paper .static{color:#5C574C;}
+  .kicker{
+    font-size:clamp(26px,3vw,38px);
+    max-width:720px;
+    margin:18px 0 20px;
+    line-height:1.22;
+  }
+  .lede{font-size:17px; opacity:0.75; max-width:620px; margin-bottom:10px;}
+  .static{color:var(--static);}
+
+  /* PHILOSOPHY TEASER */
+  .philosophy{
+    display:grid;
+    grid-template-columns:0.55fr 1fr;
+    gap:70px;
+    align-items:start;
+  }
+  .philosophy blockquote{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(22px,2.6vw,30px);
+    line-height:1.4;
+    color:var(--ink);
+  }
+  .philosophy blockquote span{color:var(--amber-dark); font-style:normal;}
+
+  /* OFFERS */
+  .offers-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:50px;
+  }
+  .offer-card{
+    background:var(--ink);
+    padding:32px 26px;
+    display:flex; flex-direction:column;
+    min-height:340px;
+  }
+  .offer-num{font-family:var(--mono); font-size:11px; color:var(--amber); letter-spacing:0.1em; margin-bottom:20px;}
+  .offer-card h3{font-size:21px; margin-bottom:12px; line-height:1.25;}
+  .offer-card p{font-size:14.5px; color:var(--static); flex-grow:1; margin-bottom:20px;}
+  .offer-price{font-family:var(--mono); font-size:12px; color:var(--cream-text); opacity:0.7; margin-bottom:18px;}
+  .offer-link{
+    font-family:var(--mono); font-size:12.5px; color:var(--amber);
+    display:flex; align-items:center; gap:6px;
+    transition:gap 0.2s;
+  }
+  .offer-link:hover{gap:10px;}
+
+  /* PROOF STRIP */
+  .proof{
+    background:var(--ink-soft);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:56px 0;
+  }
+  .proof-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+  }
+  .proof-item{text-align:left; border-left:1px solid var(--line); padding-left:20px;}
+  .proof-num{font-family:var(--serif); font-size:38px; color:var(--amber);}
+  .proof-label{font-family:var(--mono); font-size:11.5px; color:var(--static); letter-spacing:0.05em; margin-top:6px; text-transform:uppercase;}
+
+  /* CTA CLOSE */
+  .cta-close{
+    text-align:center;
+    padding:120px 0;
+  }
+  .cta-close h2{font-size:clamp(30px,4vw,46px); max-width:760px; margin:0 auto 22px;}
+  .cta-close p{max-width:520px; margin:0 auto 40px; color:var(--static); font-size:16px;}
+  .cta-close .btn-primary{padding:18px 34px; font-size:14px;}
+  .final-line{
+    margin-top:26px;
+    font-family:var(--serif); font-style:italic;
+    color:var(--static); font-size:15px;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:50px 0 40px;
+  }
+  .footer-grid{
+    display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;
+  }
+  .footer-sig{
+    font-family:var(--serif); font-style:italic;
+    max-width:420px; font-size:15px; color:var(--static); line-height:1.5;
+  }
+  .footer-nav{display:flex; gap:26px; font-size:13px; color:var(--static);}
+  .footer-nav a:hover{color:var(--amber);}
+  .footer-meta{font-family:var(--mono); font-size:11px; color:var(--static); margin-top:30px; letter-spacing:0.04em;}
+
+  @media (max-width: 880px){
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+    .philosophy{grid-template-columns:1fr; gap:30px;}
+    .offers-grid{grid-template-columns:1fr 1fr;}
+    .proof-grid{grid-template-columns:1fr 1fr; gap:26px;}
+    .nav-links{display:none;}
+    .nav-toggle{display:block;}
+  }
+  @media (max-width: 540px){
+    .offers-grid{grid-template-columns:1fr;}
+    .proof-grid{grid-template-columns:1fr 1fr;}
+    section{padding:70px 0;}
+    .wrap{padding:0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">Packaged <span>&</span> Positioned</div>
+    <div class="nav-links">
+      <a href="services.html">Services</a>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Book a Call</a>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Signal: Positioning</div>
+      <h1>You're not losing to worse businesses.<br>You're losing to <em>better-remembered</em> ones.</h1>
+      <p class="sub">With Packaged & Positioned, what you already do becomes a brand people can't forget.</p>
+      <div class="btn-row">
+        <a href="contact.html" class="btn-primary">Book a Free Positioning Call →</a>
+        <a href="work.html" class="btn-ghost">See the Work</a>
+      </div>
+    </div>
+    <div class="signal-box">
+      <div class="label"><span>INPUT: NOISE</span><span>OUTPUT: SIGNAL</span></div>
+      <svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,80 L8,55 L16,100 L24,40 L32,115 L40,60 L48,95 L56,45 L64,105 L72,70 L80,90 L88,50 L96,110 L104,65 L112,95 L120,55" 
+          stroke="#8C8579" stroke-width="1.5" fill="none" opacity="0.55"/>
+        <path d="M120,80 C160,80 180,80 400,80" 
+          stroke="#C98A3D" stroke-width="2.5" fill="none"/>
+        <circle cx="400" cy="80" r="4" fill="#C98A3D"/>
+        <line x1="120" y1="20" x2="120" y2="140" stroke="#8C8579" stroke-width="1" stroke-dasharray="3 4" opacity="0.4"/>
+      </svg>
+      <div class="label" style="margin-top:14px; margin-bottom:0;"><span>STATIC</span><span style="color:#C98A3D">CLARITY</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-paper">
+  <div class="wrap philosophy">
+    <div>
+      <div class="eyebrow">Sig:01 — Philosophy</div>
+      <p class="kicker" style="color:#14171C;">Every brand begins with one thing: clarity. Before logos. Before content. Before marketing.</p>
+      <a href="about.html" class="btn-ghost" style="color:#14171C; border-color:#14171C;">Read How I Think →</a>
+    </div>
+    <blockquote>
+      "Most brands don't have a marketing problem. They have a <span>translation problem.</span> The founder knows exactly why their business matters — they just haven't said it in a way anyone else can repeat."
+    </blockquote>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Sig:02 — Ways to Work Together</div>
+    <p class="kicker">Be remembered before you're compared.</p>
+    <p class="lede">Every brand is at a different stage. Start with the one that matches where yours is today.</p>
+
+    <div class="offers-grid">
+      <div class="offer-card">
+        <div class="offer-num">01 / Diagnose</div>
+        <h3>The Positioning Audit</h3>
+        <p>For the founder who knows something's off but can't name it. A full diagnostic, with a clear next-step recommendation.</p>
+        <div class="offer-price">₦100,000 – ₦150,000</div>
+        <a href="services.html" class="offer-link">Start with an Audit →</a>
+      </div>
+      <div class="offer-card">
+        <div class="offer-num">02 / Rebuild</div>
+        <h3>The Brand Voice Reset</h3>
+        <p>For the founder ready to fix it, not just find it. Positioning, messaging, and voice — rebuilt from the ground up.</p>
+        <div class="offer-price">₦250,000 – ₦350,000</div>
+        <a href="services.html" class="offer-link">Reset My Brand →</a>
+      </div>
+      <div class="offer-card">
+        <div class="offer-num">03 / Execute</div>
+        <h3>Signature Copy</h3>
+        <p>For the brand that knows what it wants to say. Website copy, sales pages, email sequences, launch campaigns.</p>
+        <div class="offer-price">₦20,000 – ₦150,000+</div>
+        <a href="services.html" class="offer-link">Get Signature Copy →</a>
+      </div>
+      <div class="offer-card">
+        <div class="offer-num">04 / Sustain</div>
+        <h3>Brand Partner</h3>
+        <p>For the founder who's done the fix and needs the voice kept alive — every campaign, every month.</p>
+        <div class="offer-price">₦500,000+/month</div>
+        <a href="services.html" class="offer-link">Become a Brand Partner →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proof">
+  <div class="wrap proof-grid">
+    <div class="proof-item">
+      <div class="proof-num">50+</div>
+      <div class="proof-label">Institutions Reached</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">10+</div>
+      <div class="proof-label">Demos Booked</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">100+</div>
+      <div class="proof-label">Pieces of Copy Written</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">3</div>
+      <div class="proof-label">Communities Built & Managed</div>
+    </div>
+  </div>
+</div>
+
+<section class="cta-close">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;">Sig:05 — Start Here</div>
+    <h2>Let's Build a Brand People Can Repeat.</h2>
+    <p>You already know the work is good. That was never the question. The question is whether someone can explain what you do after the conversation ends.</p>
+    <a href="contact.html" class="btn-primary">Book a Free Positioning Call →</a>
+    <p class="final-line">Because a brand only gets remembered if someone else can say it back.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-sig">
+      "A brand isn't what you say about yourself. It's what other people repeat when you're not in the room."
+      <div class="footer-meta">PACKAGED & POSITIONED — UYO, NIGERIA</div>
+    </div>
+    <div class="footer-nav">
+      <a href="services.html">Services</a>
+      <a href="work.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
